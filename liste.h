@@ -69,12 +69,6 @@ void cancellaNodoInPosizione( Node_t **phead, int posizione );
 
 void distruggiLista( Node_t **phead );
 
-void stampaListaTesta_Fine( Node_t *head );
-void stampaListaFine_Testa( Node_t *head );
-
-int contaNodi( Node_t *head );
-float sommaNodi( Node_t *head );
-
 Node_t *trovaNodoPrecedente( Node_t *head, int posizione );
 Node_t *trovaUltimoNodo( Node_t *head );
 Node_t *trovaPenultimoNodo( Node_t *head );
@@ -82,8 +76,18 @@ Node_t *trovaPenultimoNodo( Node_t *head );
 bool cercaElemento( Node_t *head, int elemento );
 
 void ordinaLista( Node_t **phead );
+
+// TODO
+/*
+void stampaListaTesta_Fine( Node_t *head );
+void stampaListaFine_Testa( Node_t *head );
+
+int contaNodi( Node_t *head );
+float sommaNodi( Node_t *head );
+
 void invertiLista( Node_t **phead );
 Node_t *unioneLista( Node_t *head1, Node_t *head_2 );
 Node_t *intersezioneListe( Node_t *head1, Node_t *head_2 );
+*/
 
 #endif
