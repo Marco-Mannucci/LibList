@@ -12,11 +12,21 @@ Node_t *creaLista() {
 Node_t *creaNodo( int info ) {
 
     // Creo il nodo
-    Node_t *aux = new Node_t;
+    Node_t *pAux = new Node_t;
 
     // Compilo i campi
-    aux->info = info;
-    aux->next = nullptr;
+    pAux->info = info;
+    pAux->next = nullptr;
 
-    return aux;
+    return pAux;
+}
+
+bool checkListaVuota( Node_t *head ) {
+
+    // Lista vuota
+    if ( head == nullptr ) {
+        return true;
+    }
+
+    return false;
 }
