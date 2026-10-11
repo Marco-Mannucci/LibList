@@ -34,7 +34,12 @@ bool checkListaVuota( Node_t *head ) {
 
 Node_t *copiaLista( Node_t *pListaDaCopiare ) {
     
-    return pListaDaCopiare;
+    Node_t *newHead = creaLista();
+    Node_t *pTmp = pListaDaCopiare;
+
+    while ( pTmp != nullptr ) {
+        
+    }
 }
 
 bool rimuoviDuplicati( Node_t **phead ) {
@@ -43,26 +48,28 @@ bool rimuoviDuplicati( Node_t **phead ) {
         return false;
     }
 
-    // Puntano al primo nodo
     Node_t *pCurr = ( *phead );
-    Node_t *pCheck = ( *phead );
-    int posizione = 0;
+    Node_t *pCheck = pCurr;
 
     while ( pCurr != nullptr ) {
-        while ( pCheck != nullptr ) {
-            pCheck = pCheck->next;      // Sposto Check sul successivo
-            posizione++;
-
-            if ( pCheck->info == pCurr->info ) {
-                cancellaNodoInPosizione( phead, pCheck, posizione );
+        while ( pCheck->next != nullptr ) {
+            if ( pCheck->next->info == pCurr->info ) {
+                // Duplicato
+                Node_t *pDaCancellare = pCheck->next;
+                pCheck->next = pDaCancellare->next;
+                delete pDaCancellare;
+            }
+            else {
+                pCheck = pCheck->next;
             }
         }
 
-        pCurr = pCurr->next;            // Sposto Curr sul successivo
+        pCurr = pCurr->next;
+        pCheck = pCurr;
     }
 
     return true;
-}
+} 
 
 void aggiungiNodoInTesta( Node_t **phead, Node_t *pAux ) {
 
@@ -89,45 +96,33 @@ void aggiungiNodoInPosizione( Node_t **phead, Node_t *pAux, int posizione ) {
     if ( ( *phead ) == nullptr ) {
         ( *phead ) = pAux;
     }
+    else if ( posizione == 0 ) {
+        aggiungiNodoInTesta( phead, pAux );
+    }
     else {
         Node_t *pTmp = trovaNodoPrecedente( ( *phead ), posizione );
 
-        // Posizione accettabile
-        if ( ( pTmp->next) != nullptr) {
-            pAux = pTmp->next;
-        }
-
+        pAux->next = pTmp->next;
         pTmp->next = pAux;
     }
 }
 
 void inserimentoOrdinato( Node_t **phead, Node_t *pAux ) {
 
-    if ( ( *phead ) == nullptr ) {
-        ( *phead ) = pAux;
+    if ( ( *phead ) == nullptr || ( *phead )->info >= pAux->info ) {
+        aggiungiNodoInTesta( phead, pAux );
     }
     else {
         // Se due nodi hanno lo stesso valore il nodo da inserire lo inserisco prima
+
         Node_t *pTmp = ( *phead );
 
-        // Primo nodo gia maggiore del nodo da inserire
-        if ( ( pTmp->info ) <= ( pAux->info ) ) {
-            aggiungiNodoInTesta( phead, pAux );
+        while ( pTmp->next != nullptr && pTmp->next->info < pAux->info ) {
+            pTmp = pTmp->next;
         }
-        else {
-            while ( pTmp != nullptr ) {
-                // Ultimo Nodo
-                if ( ( pTmp->next ) == nullptr ) {
-                    aggiungiNodoInCoda( phead, pAux );
-                }
-                else if ( ( pTmp->next->info ) >= ( pAux->info ) ) {
-                    pAux = pTmp->next;
-                    pTmp->next = pAux;
-                }
 
-                pTmp = pTmp->next;
-            } 
-        }
+        pAux->next = pTmp->next;
+        pTmp->next = pAux;
     }
 }
 
