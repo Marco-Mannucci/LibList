@@ -85,3 +85,16 @@ void aggiungiNodoInCoda( Node_t **phead, Node_t *pAux ) {
     Node_t *pTmp = trovaUltimoNodo( ( *phead ) );
     pTmp->next = pAux;
 }
+
+void aggiungiNodoInPosizione( Node_t **phead, Node_t *pAux, int posizione ) {
+
+    // Lista vuota
+    if ( ( *phead ) == nullptr ) {
+        ( *phead ) = pAux;
+    }
+
+    // Lista non vuota
+    Node_t *pTmp = trovaNodoPrecedente( ( *phead ), posizione );
+    pTmp->next = pAux;
+
+}
