@@ -77,7 +77,7 @@ float sommaNodi( Node_t *head );
 
 Node_t *trovaNodoPrecedente( Node_t *head, int posizione );
 Node_t *trovaUltimoNodo( Node_t *head );
-Node_t *trovaPenultimoNodo( Node_t *head, int posizione );
+Node_t *trovaPenultimoNodo( Node_t *head );
 
 int cercaElemento( Node_t *head );
 

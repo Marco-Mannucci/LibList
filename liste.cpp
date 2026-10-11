@@ -124,7 +124,37 @@ void inserimentoOrdinato( Node_t **phead, Node_t *pAux ) {
                     pAux = pTmp->next;
                     pTmp->next = pAux;
                 }
+
+                pTmp = pTmp->next;
             } 
         }
     }
+}
+
+Node_t *rimuoviNodoInTesta( Node_t **phead, Node_t *pAux ) {
+
+    // Lista vuota
+    if ( ( *phead ) == nullptr ) {
+        return nullptr;
+    }
+
+    Node_t *pTmp = ( *phead );
+    ( *phead ) = ( *phead )->next;
+
+    return pTmp;
+}
+
+Node_t *rimuoviNodoInCoda( Node_t **phead, Node_t *pAux ) {
+
+    // Lista vuota
+        if ( ( *phead ) == nullptr ) {
+        return nullptr;
+    }
+
+    Node_t *pTmp = trovaUltimoNodo( ( *phead ) );
+    Node_t *pPenultimo = trovaPenultimoNodo( ( *phead ) );
+
+    pPenultimo->next = nullptr;
+
+    return pTmp;
 }
