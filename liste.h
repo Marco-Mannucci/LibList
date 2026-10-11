@@ -61,10 +61,10 @@ void inserimentoOrdinato( Node_t **phead, Node_t *pAux );
 // Restituiscono il nodo rimosso
 Node_t *rimuoviNodoInTesta( Node_t **phead );
 Node_t *rimuoviNodoInCoda( Node_t **phead );
-Node_t *rimuoviNodoInPosizione( Node_t **phead, Node_t *pAux, int posizione );
+Node_t *rimuoviNodoInPosizione( Node_t **phead, int posizione );
 
-void cancellaNodoInTesta( Node_t **phead, Node_t *pAux );
-void cancellaNodoInCosa( Node_t **phead, Node_t *pAux );
+void cancellaNodoInTesta( Node_t **phead );
+void cancellaNodoInCoda( Node_t **phead );
 void cancellaNodoInPosizione( Node_t **phead, Node_t *pAux, int posizione );
 
 void distruggiLista( Node_t **phead );

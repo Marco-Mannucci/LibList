@@ -171,3 +171,66 @@ Node_t *rimuoviNodoInCoda( Node_t **phead ) {
 
     return pTmp;
 }
+
+Node_t *rimuoviNodoInPosizione( Node_t **phead, int posizione ) {
+
+    // Lista vuota
+    if ( ( *phead ) == nullptr ) {
+        return nullptr;
+    }
+
+    Node_t *pTmp = ( *phead );
+    Node_t *pNodoDaRimuovere;
+    int indicePosizione = 0;
+    
+    if ( posizione == 0 ) {
+        return rimuoviNodoInTesta( phead );
+    }
+
+    while ( pTmp->next != nullptr && indicePosizione < ( posizione - 1 ) ) {
+        pTmp = pTmp->next;
+        indicePosizione++;
+    }
+    
+    // Se esco per posizione troppo grande rimuovo in coda
+    if ( pTmp->next == nullptr ) {
+        pNodoDaRimuovere = rimuoviNodoInCoda( phead );
+    }
+    else {
+        // pTmp è sul precedente
+        pNodoDaRimuovere = pTmp->next;
+        pTmp->next = pNodoDaRimuovere->next;
+        pNodoDaRimuovere->next = nullptr;
+    }
+
+    return pNodoDaRimuovere;
+}
+
+void cancellaNodoInTesta( Node_t **phead ) {
+
+    Node_t *pTmp = rimuoviNodoInTesta( phead );
+
+    delete pTmp;
+}
+
+void cancellaNodoInCoda( Node_t **phead ) {
+
+    Node_t *pTmp = rimuoviNodoInCoda( phead );
+
+    delete pTmp;
+}
+
+void cancellaNodoInPosizione( Node_t **phead, Node_t *pAux, int posizione );
+
+void distruggiLista( Node_t **phead );
+
+Node_t *trovaNodoPrecedente( Node_t *head, int posizione );
+Node_t *trovaUltimoNodo( Node_t *head );
+Node_t *trovaPenultimoNodo( Node_t *head );
+
+int cercaElemento( Node_t *head );
+
+void ordinaLista( Node_t **phead );
+void invertiLista( Node_t **phead );
+Node_t *unioneLista( Node_t *head1, Node_t *head_2 );
+Node_t *intersezioneListe( Node_t *head1, Node_t *head_2 );
