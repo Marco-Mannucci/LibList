@@ -36,3 +36,30 @@ Node_t *copiaLista( Node_t *pListaDaCopiare ) {
     
     return pListaDaCopiare;
 }
+
+bool rimuoviDuplicati( Node_t **phead ) {
+
+    // Lista vuota
+    if ( ( *phead ) == nullptr ) {
+        return false;
+    }
+
+    Node_t *pCurr = ( *phead );
+    Node_t *pCheck = ( *phead );
+    int posizione = 0;
+
+    while ( pCurr != nullptr ) {
+        while ( pCheck != nullptr ) {
+            pCheck = pCheck->next;
+            posizione++;
+
+            if ( pCheck->info == pCurr->info ) {
+                cancellaNodoInPosizione( phead, pCheck, posizione );
+            }
+        }
+
+        pCurr = pCurr->next;
+    }
+
+    return true;
+}

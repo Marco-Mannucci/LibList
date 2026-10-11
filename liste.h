@@ -51,7 +51,7 @@ Node_t *creaLista();
 Node_t *creaNodo( int info );
 bool checkListaVuota( Node_t *head );
 Node_t *copiaLista( Node_t *pListaDaCopiare );
-void rimuoviDuplicati( Node_t **phead );
+bool rimuoviDuplicati( Node_t **phead );
 
 void aggiungiNodoInTesta( Node_t **phead, Node_t *pAux );
 void aggiungiNodoInCoda( Node_t **phead, Node_t *pAux );
