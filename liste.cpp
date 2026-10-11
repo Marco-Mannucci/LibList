@@ -73,3 +73,15 @@ void aggiungiNodoInTesta( Node_t **phead, Node_t *pAux ) {
 
     ( *phead ) = pAux;
 }
+
+void aggiungiNodoInCoda( Node_t **phead, Node_t *pAux ) {
+    
+    // Lista vuota
+    if ( ( *phead ) == nullptr ) {
+        ( *phead ) = pAux;
+    }
+
+    // Lista non vuota
+    Node_t *pTmp = trovaUltimoNodo( ( *phead ) );
+    pTmp->next = pAux;
+}
