@@ -28,5 +28,11 @@ bool checkListaVuota( Node_t *head ) {
         return true;
     }
 
+    // Lista non vuota
     return false;
+}
+
+Node_t *copiaLista( Node_t *pListaDaCopiare ) {
+    
+    return pListaDaCopiare;
 }
