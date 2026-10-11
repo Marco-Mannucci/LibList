@@ -65,7 +65,7 @@ Node_t *rimuoviNodoInPosizione( Node_t **phead, int posizione );
 
 void cancellaNodoInTesta( Node_t **phead );
 void cancellaNodoInCoda( Node_t **phead );
-void cancellaNodoInPosizione( Node_t **phead, Node_t *pAux, int posizione );
+void cancellaNodoInPosizione( Node_t **phead, int posizione );
 
 void distruggiLista( Node_t **phead );
 

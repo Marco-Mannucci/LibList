@@ -220,9 +220,21 @@ void cancellaNodoInCoda( Node_t **phead ) {
     delete pTmp;
 }
 
-void cancellaNodoInPosizione( Node_t **phead, Node_t *pAux, int posizione );
+void cancellaNodoInPosizione( Node_t **phead, int posizione ) {
 
-void distruggiLista( Node_t **phead );
+    Node_t *pTmp = rimuoviNodoInPosizione( phead, posizione );
+
+    delete pTmp;
+}
+
+void distruggiLista( Node_t **phead ) {
+
+    Node_t *pTmp = ( *phead );
+
+    while ( ( *phead ) != nullptr ) {
+        cancellaNodoInTesta( phead );
+    }
+}
 
 Node_t *trovaNodoPrecedente( Node_t *head, int posizione );
 Node_t *trovaUltimoNodo( Node_t *head );
