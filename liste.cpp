@@ -36,10 +36,17 @@ Node_t *copiaLista( Node_t *pListaDaCopiare ) {
     
     Node_t *newHead = creaLista();
     Node_t *pTmp = pListaDaCopiare;
+    Node_t *nodoDaCopiare;
 
     while ( pTmp != nullptr ) {
-        
+        nodoDaCopiare = creaNodo( pTmp->info );
+
+        aggiungiNodoInCoda( &newHead, nodoDaCopiare );
+
+        pTmp = pTmp->next;
     }
+
+    return newHead;
 }
 
 bool rimuoviDuplicati( Node_t **phead ) {
@@ -126,7 +133,7 @@ void inserimentoOrdinato( Node_t **phead, Node_t *pAux ) {
     }
 }
 
-Node_t *rimuoviNodoInTesta( Node_t **phead, Node_t *pAux ) {
+Node_t *rimuoviNodoInTesta( Node_t **phead ) {
 
     // Lista vuota
     if ( ( *phead ) == nullptr ) {
@@ -136,20 +143,31 @@ Node_t *rimuoviNodoInTesta( Node_t **phead, Node_t *pAux ) {
     Node_t *pTmp = ( *phead );
     ( *phead ) = ( *phead )->next;
 
+    pTmp->next = nullptr;
+
     return pTmp;
 }
 
-Node_t *rimuoviNodoInCoda( Node_t **phead, Node_t *pAux ) {
+Node_t *rimuoviNodoInCoda( Node_t **phead ) {
 
     // Lista vuota
-        if ( ( *phead ) == nullptr ) {
+    if ( ( *phead ) == nullptr ) {
         return nullptr;
     }
 
-    Node_t *pTmp = trovaUltimoNodo( ( *phead ) );
-    Node_t *pPenultimo = trovaPenultimoNodo( ( *phead ) );
+    Node_t *pTmp;
 
-    pPenultimo->next = nullptr;
+    // 1 Solo nodo
+    if ( ( *phead )->next == nullptr ) {
+        pTmp = ( *phead );
+        ( *phead ) = nullptr;
+    }
+    else {
+        pTmp = trovaUltimoNodo( ( *phead ) );
+        Node_t *pPenultimo = trovaPenultimoNodo( ( *phead ) );
+
+        pPenultimo->next = nullptr;
+    }
 
     return pTmp;
 }

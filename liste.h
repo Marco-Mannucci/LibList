@@ -59,8 +59,8 @@ void aggiungiNodoInPosizione( Node_t **phead, Node_t *pAux, int posizione );
 void inserimentoOrdinato( Node_t **phead, Node_t *pAux );
 
 // Restituiscono il nodo rimosso
-Node_t *rimuoviNodoInTesta( Node_t **phead, Node_t *pAux );
-Node_t *rimuoviNodoInCoda( Node_t **phead, Node_t *pAux );
+Node_t *rimuoviNodoInTesta( Node_t **phead );
+Node_t *rimuoviNodoInCoda( Node_t **phead );
 Node_t *rimuoviNodoInPosizione( Node_t **phead, Node_t *pAux, int posizione );
 
 void cancellaNodoInTesta( Node_t **phead, Node_t *pAux );
