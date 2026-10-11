@@ -236,13 +236,100 @@ void distruggiLista( Node_t **phead ) {
     }
 }
 
-Node_t *trovaNodoPrecedente( Node_t *head, int posizione );
-Node_t *trovaUltimoNodo( Node_t *head );
-Node_t *trovaPenultimoNodo( Node_t *head );
+Node_t *trovaNodoPrecedente( Node_t *head, int posizione ) {
 
-int cercaElemento( Node_t *head );
+    // Lista vuota
+    if ( head == nullptr ) {
+        return nullptr;
+    }
 
-void ordinaLista( Node_t **phead );
+    Node_t *pTmp = head;
+    int indicePosizione = 0;
+
+    while ( pTmp->next != nullptr && indicePosizione < ( posizione - 1 ) ) {
+        pTmp = pTmp->next;
+        indicePosizione++;
+    }
+
+    return pTmp;
+}
+
+Node_t *trovaUltimoNodo( Node_t *head ) {
+
+    // Lista vuota
+    if ( head == nullptr ) {
+        return nullptr;
+    }
+
+    Node_t *pTmp = head;
+
+    while ( pTmp->next != nullptr ) {
+        pTmp = pTmp->next;
+    }
+
+    return pTmp;
+}
+
+Node_t *trovaPenultimoNodo( Node_t *head ) {
+    
+    // Lista vuota
+    if ( head == nullptr ) {
+        return nullptr;
+    }
+
+    // Lista composta da 1 nodo
+    if ( head->next == nullptr ) {
+        return nullptr;
+    }
+
+    Node_t *pTmp = head;
+
+    while ( pTmp->next->next != nullptr ) {
+        pTmp = pTmp->next;
+    }
+
+    return pTmp;
+}
+
+bool cercaElemento( Node_t *head, int elemento ) {
+
+    // Lista vuota
+    if ( head == nullptr ) {
+        return false;
+    }
+
+    Node_t *pTmp = head;
+
+    while ( pTmp != nullptr ) {
+        if ( pTmp->info == elemento ) {
+            return true;
+        }
+
+        pTmp = pTmp->next;
+    }
+
+    return false;
+}
+
+void ordinaLista( Node_t **phead ) {
+
+    // Sfrutto un bubble sort per ordinare la lista
+
+    // Lista vuota
+    if ( ( *phead ) == nullptr) {
+        return;
+    }
+
+    Node_t *a = ( *phead );
+    Node_t *b = a->next;
+
+    while ( b != nullptr ) {
+        if ( a->info >= b->info ) {
+            ( *phead ) = a->next;
+            a = n
+        }
+    }
+}
 void invertiLista( Node_t **phead );
 Node_t *unioneLista( Node_t *head1, Node_t *head_2 );
 Node_t *intersezioneListe( Node_t *head1, Node_t *head_2 );
