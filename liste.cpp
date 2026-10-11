@@ -44,6 +44,7 @@ bool rimuoviDuplicati( Node_t **phead ) {
         return false;
     }
 
+    // Lista non vuota
     Node_t *pCurr = ( *phead );
     Node_t *pCheck = ( *phead );
     int posizione = 0;
@@ -62,4 +63,13 @@ bool rimuoviDuplicati( Node_t **phead ) {
     }
 
     return true;
+}
+
+void aggiungiNodoInTesta( Node_t **phead, Node_t *pAux ) {
+
+    if ( ( *phead ) != nullptr ) {
+        pAux->next = ( *phead );
+    }
+
+    ( *phead ) = pAux;
 }
