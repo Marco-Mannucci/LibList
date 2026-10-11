@@ -313,23 +313,51 @@ bool cercaElemento( Node_t *head, int elemento ) {
 
 void ordinaLista( Node_t **phead ) {
 
-    // Sfrutto un bubble sort per ordinare la lista
-
     // Lista vuota
     if ( ( *phead ) == nullptr) {
         return;
     }
 
-    Node_t *a = ( *phead );
-    Node_t *b = a->next;
-
-    while ( b != nullptr ) {
-        if ( a->info >= b->info ) {
-            ( *phead ) = a->next;
-            a = n
-        }
+    // Lista composta da 1 nodo
+    if ( ( *phead )->next == nullptr ) {
+        return;
     }
+
+    Node_t *a;
+    Node_t *b;
+    Node_t *pPrec;
+    bool scambiato;
+
+    do {
+
+        scambiato = false;
+        pPrec = nullptr;
+        a = ( *phead );
+
+        // Mi fermo sull'ultimo nodo: b = a->next deve esistere
+        while ( a->next != nullptr ) {
+            b = a->next; 
+
+            if ( a->info > b->info ) {
+                // Scambio
+                a->next = b->next;
+                b->next = a;
+
+                if ( pPrec == nullptr ) {
+                    ( *phead ) = b;
+                }
+                else {
+                    pPrec->next = b;
+                }
+
+                scambiato = true;
+
+                pPrec = b;
+            }
+            else {
+                pPrec = a;
+                a = a->next;
+            }
+        }
+    } while ( scambiato );
 }
-void invertiLista( Node_t **phead );
-Node_t *unioneLista( Node_t *head1, Node_t *head_2 );
-Node_t *intersezioneListe( Node_t *head1, Node_t *head_2 );
