@@ -402,7 +402,23 @@ int contaNodi( Node_t *head ) {
     return contatore;
 }
 
-float sommaNodi( Node_t *head );
+int sommaNodi( Node_t *head ) {
+
+    if ( head == nullptr ) {
+        return 0;
+    }
+
+    Node_t *pTmp = head;
+    int somma = 0;
+
+    while ( pTmp != nullptr ) {
+        somma += pTmp->info;
+
+        pTmp = pTmp->next;
+    }
+
+    return somma;
+}
 
 void invertiLista( Node_t **phead );
 Node_t *unioneLista( Node_t *head1, Node_t *head_2 );

@@ -82,7 +82,7 @@ void stampaListaTesta_Fine( Node_t *head );
 void stampaListaFine_Testa( Node_t *head );
 
 int contaNodi( Node_t *head );
-float sommaNodi( Node_t *head );
+int sommaNodi( Node_t * head);
 
 void invertiLista( Node_t **phead );
 Node_t *unioneLista( Node_t *head1, Node_t *head_2 );
