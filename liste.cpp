@@ -513,27 +513,19 @@ Node_t *unioneListaRD( Node_t *head1, Node_t *head2 ) {
     return listaUnione;
 }
 
-Node_t *intersezioneListe( Node_t *head1, Node_t *head_2 ) {
+Node_t *intersezioneListe( Node_t *head1, Node_t *head2 ) {
     
-    Node_t *listaUnione = nullptr;
+    Node_t *listaIntersezione = nullptr;
     Node_t* pNodoCreato;
 
     for ( Node_t *p = head1; p != nullptr; p = p->next ) {
-        if ( !cercaElemento( listaUnione, p->info ) ) {
+        // Accoda una copia di valore in coda, solo se non è già presente
+        if ( !cercaElemento( listaIntersezione, p->info ) && cercaElemento( head2, p->info ) ) {
             pNodoCreato = creaNodo( p->info );
 
-            // Accoda una copia di valore in coda, solo se non è già presente
-            aggiungiNodoInCoda( &listaUnione, pNodoCreato );
+            aggiungiNodoInCoda( &listaIntersezione, pNodoCreato );
         }
     }
 
-    for ( Node_t *p = head2; p != nullptr; p = p->next ) {
-        if ( !cercaElemento( listaUnione, p->info ) ) {
-            pNodoCreato = creaNodo( p->info );
-
-            aggiungiNodoInCoda( &listaUnione, pNodoCreato );
-        }
-    }
-
-    return listaUnione;
+    return listaIntersezione;
 }
