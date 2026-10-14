@@ -42,7 +42,8 @@ Cerca elemento
 
 Ordina lista ( in base hai valori del campo info ( dal più piccolo al più grande ) )
 Inverti lista
-Unione lista ( restituisce una lista che unisce due liste )
+Unione lista ND ( restituisce una lista che unisce due liste, concatenazione ( non rimuove i duplicati ) )
+Unione lista RD ( come ND ma rimuove i duplicati )
 Intersezione fra liste ( restituisce una lista con i nodi in comune fra due liste )
 
 e le loro ricorsive
@@ -85,7 +86,10 @@ int contaNodi( Node_t *head );
 int sommaNodi( Node_t * head);
 
 void invertiLista( Node_t **phead );
-Node_t *unioneLista( Node_t *head1, Node_t *head_2 );
+Node_t *unioneListaNRD( Node_t *head1, Node_t *head2 );
+Node_t *unioneListaRD( Node_t *head1, Node_t *head2 );
 Node_t *intersezioneListe( Node_t *head1, Node_t *head_2 );
 
-#endif
+Node_t *scorriEcopia( Node_t *puntatoreLista );
+
+#endif // LISTE_H

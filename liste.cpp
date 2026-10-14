@@ -447,5 +447,45 @@ void invertiLista( Node_t **phead ) {
     ( *phead ) = prev;
 }
 
-Node_t *unioneLista( Node_t *head1, Node_t *head_2 );
+// Funzione per scorrere e copiare liste
+// Usata in unioneLista
+Node_t *scorriEcopia( Node_t *head ) {
+
+    Node_t *copia = nullptr;
+    Node_t *pNodoCreato;
+    Node_t *pUltimoNodo = nullptr;
+
+    while ( head != nullptr ) {
+        // Creo e "attacco" il nodo
+        pNodoCreato = creaNodo( head->info );
+
+        // Primo nodo: diventa la testa. Altrimenti lo attacco in coda
+        if ( copia == nullptr ) {
+            copia = pNodoCreato;
+        } else {
+            pUltimoNodo->next = pNodoCreato;
+        }
+
+        pUltimoNodo = pUltimoNodo->next;
+        head = head->next;
+    }
+
+    return copia;
+}
+
+Node_t *unioneListaNRD( Node_t *head1, Node_t *head2 ) {
+
+    Node_t *copia1 = scorriEcopia( head1 );
+    Node_t *copia2 = scorriEcopia( head2 );
+
+    // Se la prima è vuota, l'unione è solo la seconda (anche se vuota)
+    if ( copia1 == nullptr ) {
+        return copia2;
+    }
+
+    trovaUltimoNodo( copia1 )->next = copia2;
+
+    return copia1;
+}
+
 Node_t *intersezioneListe( Node_t *head1, Node_t *head_2 );
