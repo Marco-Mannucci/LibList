@@ -1,3 +1,4 @@
+
 #ifndef LISTE_H
 #define LISTE_H
 
@@ -59,6 +60,7 @@ Intersezione fra liste ( restituisce una lista con i nodi in comune fra due list
 
 */
 
+// ##################### LISTE SEMPLICI #####################
 // ===== Creazione e controllo =====
 Node_t *creaLista();
 Node_t *creaNodo( int info );
@@ -109,5 +111,56 @@ void invertiLista( Node_t **phead );
 Node_t *unioneListaNRD( Node_t *head1, Node_t *head2 );
 Node_t *unioneListaRD( Node_t *head1, Node_t *head2 );
 Node_t *intersezioneListe( Node_t *head1, Node_t *head2 );
+
+
+// ##################### LISTE CIRCOLARI #####################
+// ( creaLista, creaNodo e checkListaVuota sono le stesse delle liste semplici )
+
+// ===== Ricerca =====
+Node_t *trovaNodoPrecedenteCirc( Node_t *head, int posizione );
+Node_t *trovaUltimoNodoCirc( Node_t *head );
+Node_t *trovaPenultimoNodoCirc( Node_t *head );
+bool cercaElementoCirc( Node_t *head, int elemento );
+
+// ===== Inserimento =====
+void aggiungiNodoInTestaCirc( Node_t **phead, Node_t *pAux );
+void aggiungiNodoInCodaCirc( Node_t **phead, Node_t *pAux );
+void aggiungiNodoInPosizioneCirc( Node_t **phead, Node_t *pAux, int posizione );
+void inserimentoOrdinatoCirc( Node_t **phead, Node_t *pAux );
+
+// ===== Rimozione =====
+// Restituiscono il nodo rimosso
+Node_t *rimuoviNodoInTestaCirc( Node_t **phead );
+Node_t *rimuoviNodoInCodaCirc( Node_t **phead );
+Node_t *rimuoviNodoInPosizioneCirc( Node_t **phead, int posizione );
+
+// ===== Cancellazione =====
+void cancellaNodoInTestaCirc( Node_t **phead );
+void cancellaNodoInCodaCirc( Node_t **phead );
+void cancellaNodoInPosizioneCirc( Node_t **phead, int posizione );
+
+void distruggiListaCirc( Node_t **phead );
+
+// ===== Copia =====
+Node_t *copiaListaCirc( Node_t *pListaDaCopiare );
+bool rimuoviDuplicatiCirc( Node_t **phead );
+
+// ===== Stampa =====
+void stampaListaTesta_FineCirc( Node_t *head );
+void stampaListaFine_TestaCirc( Node_t *head );
+void stampaListaFine_TestaRicCirc( Node_t *pCurr, Node_t *head );
+
+// ===== Statistiche =====
+int contaNodiCirc( Node_t *head );
+int sommaNodiCirc( Node_t *head );
+
+// ===== Ordinamento e inversione =====
+void ordinaListaCirc( Node_t **phead );
+void invertiListaCirc( Node_t **phead );
+
+// ===== Operazioni fra liste =====
+Node_t *unioneListaNRDCirc( Node_t *head1, Node_t *head2 );
+Node_t *unioneListaRDCirc( Node_t *head1, Node_t *head2 );
+Node_t *intersezioneListeCirc( Node_t *head1, Node_t *head2 );
 
 #endif // LISTE_H
