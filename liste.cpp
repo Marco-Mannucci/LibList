@@ -384,7 +384,24 @@ void stampaListaFine_Testa( Node_t *head ) {
     cout << head->info << endl;
 }
 
-int contaNodi( Node_t *head );
+int contaNodi( Node_t *head ) {
+
+    if ( head == nullptr ) {
+        return 0;
+    }
+
+    Node_t *pTmp = head;
+    int contatore = 0;
+
+    while ( pTmp != nullptr ) {
+        contatore++;
+
+        pTmp = pTmp->next;
+    }
+
+    return contatore;
+}
+
 float sommaNodi( Node_t *head );
 
 void invertiLista( Node_t **phead );
