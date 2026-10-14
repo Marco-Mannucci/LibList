@@ -28,7 +28,8 @@ Cancella nodo in posizione x
 Distruggi lista
 
 Stampa lista, dal primo elemento
-Stampa lista, dall'ultimo elemento
+Stampa lista, dall'ultimo elemento ( ricorsiva poiché, per la versione iterativa avrei dovuto 
+                                    invertire temporaneamente i collegamenti dei nodi, stampare la lista e poi ripristinarla.)
 
 Conta nodi
 Somma contenuto nodi
@@ -77,8 +78,6 @@ bool cercaElemento( Node_t *head, int elemento );
 
 void ordinaLista( Node_t **phead );
 
-// TODO
-/*
 void stampaListaTesta_Fine( Node_t *head );
 void stampaListaFine_Testa( Node_t *head );
 
@@ -88,6 +87,5 @@ float sommaNodi( Node_t *head );
 void invertiLista( Node_t **phead );
 Node_t *unioneLista( Node_t *head1, Node_t *head_2 );
 Node_t *intersezioneListe( Node_t *head1, Node_t *head_2 );
-*/
 
 #endif

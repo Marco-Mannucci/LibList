@@ -375,6 +375,13 @@ void stampaListaTesta_Fine( Node_t *head ) {
 
 void stampaListaFine_Testa( Node_t *head ) {
     
+    // Caso lista vuota
+    if ( head == nullptr ) {
+        return;
+    }
+
+    stampaListaTesta_Fine( head->next );
+    cout << head->info << endl;
 }
 
 int contaNodi( Node_t *head );
