@@ -1,8 +1,9 @@
-
 #include "liste.h"
 #include <iostream>
 
 using namespace std;
+
+// ===== Creazione e controllo =====
 
 Node_t *creaLista() {
 
@@ -32,209 +33,7 @@ bool checkListaVuota( Node_t *head ) {
     return false;
 }
 
-Node_t *copiaLista( Node_t *pListaDaCopiare ) {
-    
-    Node_t *newHead = creaLista();
-    Node_t *pTmp = pListaDaCopiare;
-    Node_t *nodoDaCopiare;
-
-    while ( pTmp != nullptr ) {
-        nodoDaCopiare = creaNodo( pTmp->info );
-
-        aggiungiNodoInCoda( &newHead, nodoDaCopiare );
-
-        pTmp = pTmp->next;
-    }
-
-    return newHead;
-}
-
-bool rimuoviDuplicati( Node_t **phead ) {
-
-    if ( ( *phead ) == nullptr ) {
-        return false;
-    }
-
-    Node_t *pCurr = ( *phead );
-    Node_t *pCheck = pCurr;
-
-    while ( pCurr != nullptr ) {
-        while ( pCheck->next != nullptr ) {
-            if ( pCheck->next->info == pCurr->info ) {
-                // Duplicato
-                Node_t *pDaCancellare = pCheck->next;
-                pCheck->next = pDaCancellare->next;
-                delete pDaCancellare;
-            }
-            else {
-                pCheck = pCheck->next;
-            }
-        }
-
-        pCurr = pCurr->next;
-        pCheck = pCurr;
-    }
-
-    return true;
-} 
-
-void aggiungiNodoInTesta( Node_t **phead, Node_t *pAux ) {
-
-    if ( ( *phead ) != nullptr ) {
-        pAux->next = ( *phead );
-    }
-
-    ( *phead ) = pAux;
-}
-
-void aggiungiNodoInCoda( Node_t **phead, Node_t *pAux ) {
-    
-    if ( ( *phead ) == nullptr ) {
-        ( *phead ) = pAux;
-    }
-    else {
-        Node_t *pTmp = trovaUltimoNodo( ( *phead ) );
-        pTmp->next = pAux;
-    }
-}
-
-void aggiungiNodoInPosizione( Node_t **phead, Node_t *pAux, int posizione ) {
-
-    if ( ( *phead ) == nullptr ) {
-        ( *phead ) = pAux;
-    }
-    else if ( posizione == 0 ) {
-        aggiungiNodoInTesta( phead, pAux );
-    }
-    else {
-        Node_t *pTmp = trovaNodoPrecedente( ( *phead ), posizione );
-
-        pAux->next = pTmp->next;
-        pTmp->next = pAux;
-    }
-}
-
-void inserimentoOrdinato( Node_t **phead, Node_t *pAux ) {
-
-    if ( ( *phead ) == nullptr || ( *phead )->info >= pAux->info ) {
-        aggiungiNodoInTesta( phead, pAux );
-    }
-    else {
-        // Se due nodi hanno lo stesso valore il nodo da inserire lo inserisco prima
-
-        Node_t *pTmp = ( *phead );
-
-        while ( pTmp->next != nullptr && pTmp->next->info < pAux->info ) {
-            pTmp = pTmp->next;
-        }
-
-        pAux->next = pTmp->next;
-        pTmp->next = pAux;
-    }
-}
-
-Node_t *rimuoviNodoInTesta( Node_t **phead ) {
-
-    // Lista vuota
-    if ( ( *phead ) == nullptr ) {
-        return nullptr;
-    }
-
-    Node_t *pTmp = ( *phead );
-    ( *phead ) = ( *phead )->next;
-
-    pTmp->next = nullptr;
-
-    return pTmp;
-}
-
-Node_t *rimuoviNodoInCoda( Node_t **phead ) {
-
-    // Lista vuota
-    if ( ( *phead ) == nullptr ) {
-        return nullptr;
-    }
-
-    Node_t *pTmp;
-
-    // 1 Solo nodo
-    if ( ( *phead )->next == nullptr ) {
-        pTmp = ( *phead );
-        ( *phead ) = nullptr;
-    }
-    else {
-        pTmp = trovaUltimoNodo( ( *phead ) );
-        Node_t *pPenultimo = trovaPenultimoNodo( ( *phead ) );
-
-        pPenultimo->next = nullptr;
-    }
-
-    return pTmp;
-}
-
-Node_t *rimuoviNodoInPosizione( Node_t **phead, int posizione ) {
-
-    // Lista vuota
-    if ( ( *phead ) == nullptr ) {
-        return nullptr;
-    }
-
-    Node_t *pTmp = ( *phead );
-    Node_t *pNodoDaRimuovere;
-    int indicePosizione = 0;
-    
-    if ( posizione == 0 ) {
-        return rimuoviNodoInTesta( phead );
-    }
-
-    while ( pTmp->next != nullptr && indicePosizione < ( posizione - 1 ) ) {
-        pTmp = pTmp->next;
-        indicePosizione++;
-    }
-    
-    // Se esco per posizione troppo grande rimuovo in coda
-    if ( pTmp->next == nullptr ) {
-        pNodoDaRimuovere = rimuoviNodoInCoda( phead );
-    }
-    else {
-        // pTmp è sul precedente
-        pNodoDaRimuovere = pTmp->next;
-        pTmp->next = pNodoDaRimuovere->next;
-        pNodoDaRimuovere->next = nullptr;
-    }
-
-    return pNodoDaRimuovere;
-}
-
-void cancellaNodoInTesta( Node_t **phead ) {
-
-    Node_t *pTmp = rimuoviNodoInTesta( phead );
-
-    delete pTmp;
-}
-
-void cancellaNodoInCoda( Node_t **phead ) {
-
-    Node_t *pTmp = rimuoviNodoInCoda( phead );
-
-    delete pTmp;
-}
-
-void cancellaNodoInPosizione( Node_t **phead, int posizione ) {
-
-    Node_t *pTmp = rimuoviNodoInPosizione( phead, posizione );
-
-    delete pTmp;
-}
-
-void distruggiLista( Node_t **phead ) {
-
-    Node_t *pTmp = ( *phead );
-
-    while ( ( *phead ) != nullptr ) {
-        cancellaNodoInTesta( phead );
-    }
-}
+// ===== Ricerca =====
 
 Node_t *trovaNodoPrecedente( Node_t *head, int posizione ) {
 
@@ -311,60 +110,221 @@ bool cercaElemento( Node_t *head, int elemento ) {
     return false;
 }
 
-void ordinaLista( Node_t **phead ) {
+// ===== Inserimento =====
+
+void aggiungiNodoInTesta( Node_t **phead, Node_t *pAux ) {
+
+    if ( ( *phead ) != nullptr ) {
+        pAux->next = ( *phead );
+    }
+
+    ( *phead ) = pAux;
+}
+
+void aggiungiNodoInCoda( Node_t **phead, Node_t *pAux ) {
+    
+    if ( ( *phead ) == nullptr ) {
+        ( *phead ) = pAux;
+    }
+    else {
+        Node_t *pTmp = trovaUltimoNodo( ( *phead ) );
+        pTmp->next = pAux;
+    }
+}
+
+void aggiungiNodoInPosizione( Node_t **phead, Node_t *pAux, int posizione ) {
+
+    if ( ( *phead ) == nullptr ) {
+        ( *phead ) = pAux;
+    }
+    else if ( posizione == 0 ) {
+        aggiungiNodoInTesta( phead, pAux );
+    }
+    else {
+        Node_t *pTmp = trovaNodoPrecedente( ( *phead ), posizione );
+
+        pAux->next = pTmp->next;
+        pTmp->next = pAux;
+    }
+}
+
+void inserimentoOrdinato( Node_t **phead, Node_t *pAux ) {
+
+    if ( ( *phead ) == nullptr || ( *phead )->info >= pAux->info ) {
+        aggiungiNodoInTesta( phead, pAux );
+    }
+    else {
+        // Se due nodi hanno lo stesso valore il nodo da inserire lo inserisco prima
+
+        Node_t *pTmp = ( *phead );
+
+        while ( pTmp->next != nullptr && pTmp->next->info < pAux->info ) {
+            pTmp = pTmp->next;
+        }
+
+        pAux->next = pTmp->next;
+        pTmp->next = pAux;
+    }
+}
+
+// ===== Rimozione =====
+
+Node_t *rimuoviNodoInTesta( Node_t **phead ) {
 
     // Lista vuota
-    if ( ( *phead ) == nullptr) {
-        return;
+    if ( ( *phead ) == nullptr ) {
+        return nullptr;
     }
 
-    // Lista composta da 1 nodo
+    Node_t *pTmp = ( *phead );
+    ( *phead ) = ( *phead )->next;
+
+    pTmp->next = nullptr;
+
+    return pTmp;
+}
+
+Node_t *rimuoviNodoInCoda( Node_t **phead ) {
+
+    // Lista vuota
+    if ( ( *phead ) == nullptr ) {
+        return nullptr;
+    }
+
+    Node_t *pTmp;
+
+    // 1 Solo nodo
     if ( ( *phead )->next == nullptr ) {
-        return;
+        pTmp = ( *phead );
+        ( *phead ) = nullptr;
+    }
+    else {
+        pTmp = trovaUltimoNodo( ( *phead ) );
+        Node_t *pPenultimo = trovaPenultimoNodo( ( *phead ) );
+
+        pPenultimo->next = nullptr;
     }
 
-    Node_t *a;
-    Node_t *b;
-    Node_t *pPrec;
-    bool scambiato;
+    return pTmp;
+}
 
-    do {
+Node_t *rimuoviNodoInPosizione( Node_t **phead, int posizione ) {
 
-        scambiato = false;
-        pPrec = nullptr;
-        a = ( *phead );
+    // Lista vuota
+    if ( ( *phead ) == nullptr ) {
+        return nullptr;
+    }
 
-        // Mi fermo sull'ultimo nodo: b = a->next deve esistere
-        while ( a->next != nullptr ) {
-            b = a->next; 
+    Node_t *pTmp = ( *phead );
+    Node_t *pNodoDaRimuovere;
+    int indicePosizione = 0;
+    
+    if ( posizione == 0 ) {
+        return rimuoviNodoInTesta( phead );
+    }
 
-            if ( a->info > b->info ) {
-                // Scambio
-                a->next = b->next;
-                b->next = a;
+    while ( pTmp->next != nullptr && indicePosizione < ( posizione - 1 ) ) {
+        pTmp = pTmp->next;
+        indicePosizione++;
+    }
+    
+    // Se esco per posizione troppo grande rimuovo in coda
+    if ( pTmp->next == nullptr ) {
+        pNodoDaRimuovere = rimuoviNodoInCoda( phead );
+    }
+    else {
+        // pTmp è sul precedente
+        pNodoDaRimuovere = pTmp->next;
+        pTmp->next = pNodoDaRimuovere->next;
+        pNodoDaRimuovere->next = nullptr;
+    }
 
-                if ( pPrec == nullptr ) {
-                    ( *phead ) = b;
-                }
-                else {
-                    pPrec->next = b;
-                }
+    return pNodoDaRimuovere;
+}
 
-                scambiato = true;
+// ===== Cancellazione =====
 
-                pPrec = b;
+void cancellaNodoInTesta( Node_t **phead ) {
+
+    Node_t *pTmp = rimuoviNodoInTesta( phead );
+
+    delete pTmp;
+}
+
+void cancellaNodoInCoda( Node_t **phead ) {
+
+    Node_t *pTmp = rimuoviNodoInCoda( phead );
+
+    delete pTmp;
+}
+
+void cancellaNodoInPosizione( Node_t **phead, int posizione ) {
+
+    Node_t *pTmp = rimuoviNodoInPosizione( phead, posizione );
+
+    delete pTmp;
+}
+
+void distruggiLista( Node_t **phead ) {
+
+    while ( ( *phead ) != nullptr ) {
+        cancellaNodoInTesta( phead );
+    }
+}
+
+// ===== Copia =====
+
+Node_t *copiaLista( Node_t *pListaDaCopiare ) {
+    
+    Node_t *newHead = creaLista();
+    Node_t *pTmp = pListaDaCopiare;
+    Node_t *nodoDaCopiare;
+
+    while ( pTmp != nullptr ) {
+        nodoDaCopiare = creaNodo( pTmp->info );
+
+        aggiungiNodoInCoda( &newHead, nodoDaCopiare );
+
+        pTmp = pTmp->next;
+    }
+
+    return newHead;
+}
+
+bool rimuoviDuplicati( Node_t **phead ) {
+
+    if ( ( *phead ) == nullptr ) {
+        return false;
+    }
+
+    Node_t *pCurr = ( *phead );
+    Node_t *pCheck = pCurr;
+
+    while ( pCurr != nullptr ) {
+        while ( pCheck->next != nullptr ) {
+            if ( pCheck->next->info == pCurr->info ) {
+                // Duplicato
+                Node_t *pDaCancellare = pCheck->next;
+                pCheck->next = pDaCancellare->next;
+                delete pDaCancellare;
             }
             else {
-                pPrec = a;
-                a = a->next;
+                pCheck = pCheck->next;
             }
         }
-    } while ( scambiato );
-}
+
+        pCurr = pCurr->next;
+        pCheck = pCurr;
+    }
+
+    return true;
+} 
+
+// ===== Stampa =====
 
 void stampaListaTesta_Fine( Node_t *head ) {
 
-    Node_t * pTmp = head;
+    Node_t *pTmp = head;
 
     while ( pTmp != nullptr ) {
         cout << pTmp->info << endl;
@@ -380,9 +340,11 @@ void stampaListaFine_Testa( Node_t *head ) {
         return;
     }
 
-    stampaListaTesta_Fine( head->next );
+    stampaListaFine_Testa( head->next );
     cout << head->info << endl;
 }
+
+// ===== Statistiche =====
 
 int contaNodi( Node_t *head ) {
 
@@ -420,6 +382,58 @@ int sommaNodi( Node_t *head ) {
     return somma;
 }
 
+// ===== Ordinamento e inversione =====
+
+void ordinaLista( Node_t **phead ) {
+
+    // Lista vuota
+    if ( ( *phead ) == nullptr ) {
+        return;
+    }
+
+    // Lista composta da 1 nodo
+    if ( ( *phead )->next == nullptr ) {
+        return;
+    }
+
+    Node_t *a;
+    Node_t *b;
+    Node_t *pPrec;
+    bool scambiato;
+
+    do {
+        scambiato = false;
+        pPrec = nullptr;
+        a = ( *phead );
+
+        // Mi fermo sull'ultimo nodo: b = a->next deve esistere
+        while ( a->next != nullptr ) {
+            b = a->next; 
+
+            if ( a->info > b->info ) {
+                // Scambio
+                a->next = b->next;
+                b->next = a;
+
+                if ( pPrec == nullptr ) {
+                    ( *phead ) = b;
+                }
+                else {
+                    pPrec->next = b;
+                }
+
+                scambiato = true;
+
+                pPrec = b;
+            }
+            else {
+                pPrec = a;
+                a = a->next;
+            }
+        }
+    } while ( scambiato );
+}
+
 void invertiLista( Node_t **phead ) {
 
     // Caso lista vuota e caso 1 nodo
@@ -447,36 +461,12 @@ void invertiLista( Node_t **phead ) {
     ( *phead ) = prev;
 }
 
-// Funzione per scorrere e copiare liste
-// Usata in unioneLista
-Node_t *scorriEcopia( Node_t *head ) {
-
-    Node_t *copia = nullptr;
-    Node_t *pNodoCreato;
-    Node_t *pUltimoNodo = nullptr;
-
-    while ( head != nullptr ) {
-        // Creo e "attacco" il nodo
-        pNodoCreato = creaNodo( head->info );
-
-        // Primo nodo: diventa la testa. Altrimenti lo attacco in coda
-        if ( copia == nullptr ) {
-            copia = pNodoCreato;
-        } else {
-            pUltimoNodo->next = pNodoCreato;
-        }
-
-        pUltimoNodo = pUltimoNodo->next;
-        head = head->next;
-    }
-
-    return copia;
-}
+// ===== Operazioni fra liste =====
 
 Node_t *unioneListaNRD( Node_t *head1, Node_t *head2 ) {
 
-    Node_t *copia1 = scorriEcopia( head1 );
-    Node_t *copia2 = scorriEcopia( head2 );
+    Node_t *copia1 = copiaLista( head1 );
+    Node_t *copia2 = copiaLista( head2 );
 
     // Se la prima è vuota, l'unione è solo la seconda (anche se vuota)
     if ( copia1 == nullptr ) {
@@ -491,7 +481,7 @@ Node_t *unioneListaNRD( Node_t *head1, Node_t *head2 ) {
 Node_t *unioneListaRD( Node_t *head1, Node_t *head2 ) {
     
     Node_t *listaUnione = nullptr;
-    Node_t* pNodoCreato;
+    Node_t *pNodoCreato;
 
     for ( Node_t *p = head1; p != nullptr; p = p->next ) {
         if ( !cercaElemento( listaUnione, p->info ) ) {
@@ -516,7 +506,7 @@ Node_t *unioneListaRD( Node_t *head1, Node_t *head2 ) {
 Node_t *intersezioneListe( Node_t *head1, Node_t *head2 ) {
     
     Node_t *listaIntersezione = nullptr;
-    Node_t* pNodoCreato;
+    Node_t *pNodoCreato;
 
     for ( Node_t *p = head1; p != nullptr; p = p->next ) {
         // Accoda una copia di valore in coda, solo se non è già presente
