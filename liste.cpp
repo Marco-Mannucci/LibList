@@ -420,6 +420,32 @@ int sommaNodi( Node_t *head ) {
     return somma;
 }
 
-void invertiLista( Node_t **phead );
+void invertiLista( Node_t **phead ) {
+
+    // Caso lista vuota e caso 1 nodo
+    if ( ( *phead ) == nullptr || ( *phead )->next == nullptr ) {
+        return;
+    }
+
+    // Per ogni nodo inverto la direzione del suo next
+    Node_t *curr = ( *phead );
+    Node_t *prev = nullptr;
+    Node_t *next;                   // Punta al successivo prima di sovrascrivere next
+
+    while ( curr != nullptr ) {
+        // Salvo il successivo
+        next = curr->next;
+
+        // Giro il collegamento
+        curr->next = prev;
+
+        // Porto avanti i puntatori
+        prev = curr;
+        curr = next;
+    }
+
+    ( *phead ) = prev;
+}
+
 Node_t *unioneLista( Node_t *head1, Node_t *head_2 );
 Node_t *intersezioneListe( Node_t *head1, Node_t *head_2 );
